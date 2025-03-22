@@ -7,7 +7,7 @@ GITI_SCRIPT='#!/bin/bash
 if [ "$#" -lt 1 ]; then
     echo "Usage:"
     echo "  giti \"commit message\""
-    echo "  giti tag vX.X.X \"commit message\""
+    echo "  giti vX.X.X"
     exit 1
 fi
 
@@ -30,10 +30,9 @@ add_commit_push() {
 # Function to create and push a tag
 create_and_push_tag() {
     local tag_version="$1"
-    local commit_message="$2"
     read -p "Creating and pushing tag $tag_version, proceed (y/n)? " choice
     if [[ $choice =~ ^[Yy]$ ]]; then
-        git tag -a "$tag_version" -m "$commit_message"
+        git tag -a "$tag_version" -m "$tag_version"
         git push origin "$tag_version"
         echo "Tag $tag_version created and pushed."
     else
@@ -42,16 +41,13 @@ create_and_push_tag() {
 }
 
 # Main logic
-if [ "$1" == "tag" ]; then
-    if [ "$#" -ne 4 ]; then
-        echo "Usage: giti tag vX.X.X \"commit message\""
-        exit 1
-    fi
-    tag_version="$2"
-    commit_message="$4"
-    add_commit_push "$commit_message"
-    create_and_push_tag "$tag_version" "$commit_message"
+if [[ "$1" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    # If the argument matches a version tag pattern (e.g., vX.X.X)
+    tag_version="$1"
+    add_commit_push "$tag_version"
+    create_and_push_tag "$tag_version"
 else
+    # Otherwise, treat it as a regular commit message
     commit_message="$1"
     add_commit_push "$commit_message"
 fi'
