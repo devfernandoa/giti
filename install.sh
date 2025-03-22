@@ -3,11 +3,18 @@
 # Define the giti script content
 GITI_SCRIPT='#!/bin/bash
 
+# If no arguments are provided, show git status and exit
+if [ "$#" -eq 0 ]; then
+    git status
+    exit 0
+fi
+
 # Check if the correct number of arguments is provided
 if [ "$#" -lt 1 ]; then
     echo "Usage:"
-    echo "  giti \"commit message\""
-    echo "  giti vX.X.X"
+    echo "  giti                     # Show git status"
+    echo "  giti \"commit message\"   # Add, commit, and push changes"
+    echo "  giti vX.X.X              # Create a tag and push changes"
     exit 1
 fi
 
