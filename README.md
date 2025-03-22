@@ -4,6 +4,7 @@
 
 ## Features
 
+- **Status**: Checks the status of the repository before making changes.
 - **Regular Commits**: Add, commit, and push changes with a single command.
 - **Tagging**: Create and push a tag using the tag version as the commit message.
 - **Interactive Prompts**: Confirms before making changes, so you don't accidentally push something.
@@ -17,6 +18,12 @@ curl -sSL https://raw.githubusercontent.com/devfernandoa/giti/main/install.sh | 
 ```
 
 ## Usage
+
+### Status
+
+```bash
+giti
+```
 
 ### Regular Commit
 
@@ -41,6 +48,12 @@ This will:
 - Create and push a tag named vX.X.X.
 
 ## Example
+
+### Status
+
+```bash
+giti
+```
 
 ### Regular Commit
 
