@@ -15,7 +15,8 @@ fi
 add_commit_push() {
     local commit_message="$1"
     git status
-    read -p "These are the changes, add, commit and push them (y/n)? " choice
+    read -p "These are the changes, add, commit and push them (y/n)? [Y/n] " choice
+    choice=${choice:-y}  # Default to 'y' if the user presses Enter
     if [[ $choice =~ ^[Yy]$ ]]; then
         git add .
         git commit -m "$commit_message"
@@ -30,7 +31,8 @@ add_commit_push() {
 # Function to create and push a tag
 create_and_push_tag() {
     local tag_version="$1"
-    read -p "Creating and pushing tag $tag_version, proceed (y/n)? " choice
+    read -p "Creating and pushing tag $tag_version, proceed (y/n)? [Y/n] " choice
+    choice=${choice:-y}  # Default to 'y' if the user presses Enter
     if [[ $choice =~ ^[Yy]$ ]]; then
         git tag -a "$tag_version" -m "$tag_version"
         git push origin "$tag_version"
